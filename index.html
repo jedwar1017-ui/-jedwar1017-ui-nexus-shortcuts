@@ -27,6 +27,9 @@ form input{flex:1;min-width:190px}.role p{font-size:.91rem;min-height:120px}
 <p class="intro">Launch your projects, organize shortcuts, and copy an independent AI-review prompt. Use any AI app you already have; no extra API costs are created by this page.</p>
 <p class="notice"><strong>Manual multi-AI mode.</strong> Agents do not automatically communicate here. This launchpad makes their responsibilities explicit so you can transfer work and review results safely.</p>
 <section><h2>Project launchpad</h2><input id="search" type="search" placeholder="Search projects & shortcuts" aria-label="Search projects"><div id="links" style="margin-top:14px"></div></section>
+<section aria-labelledby="companions-title"><h2 id="companions-title">Digital companions — separate landscape</h2>
+<p>@Pets is its own creative companion environment. It is not a program selected for AI code generation or software tests.</p>
+<div id="companions" class="tile"></div></section>
 <section><h2>Add a shortcut</h2><form id="add"><input id="name" maxlength="70" required placeholder="Name" aria-label="Shortcut name"><input id="url" required type="url" placeholder="https://example.com" aria-label="HTTPS shortcut URL"><button type="submit">Add</button></form><p id="message" role="status" aria-live="polite"></p><p>Custom links are saved only in this browser. For safety, HTTPS addresses without embedded usernames or passwords are allowed.</p></section>
 <section><h2>AI collaboration — five roles</h2><p>Copy a role, paste it into a separate model, and pass evidence to the next role. Release only after a real test.</p><div id="roles"></div></section>
 </main><script type="module" src="./app.mjs"></script></body></html>
