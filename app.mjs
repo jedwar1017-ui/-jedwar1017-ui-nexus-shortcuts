@@ -1,4 +1,5 @@
-import {PROJECTS,COMPANIONS,ROLES,validUrl,validateShortcuts} from "./catalog.mjs";
+import {PROJECTS,ROLES,validUrl,validateShortcuts} from "./catalog.mjs";
+import {SOFTWARE_PROJECTS,COMPANIONS} from "./project-separation.mjs";
 const $=id=>document.getElementById(id),KEY="nexus-shortcuts-v1";
 let personal=[];
 try{personal=validateShortcuts(JSON.parse(localStorage.getItem(KEY)??"[]"));}catch{personal=[];}
@@ -6,7 +7,7 @@ const message=s=>{$("message").textContent=s;};
 function el(tag,text,css){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(css)e.className=css;return e;}
 function render(){
   const q=$("search").value.trim().toLowerCase(),host=$("links");host.replaceChildren();
-  for(const p of [...PROJECTS,...personal.filter(x=>!PROJECTS.some(z=>z.id===x.id))]){
+  for(const p of [...SOFTWARE_PROJECTS,...personal.filter(x=>!PROJECTS.some(z=>z.id===x.id))]){
     if(!(p.title+" "+(p.type??"custom")).toLowerCase().includes(q))continue;
     const card=el("article",undefined,"tile");card.append(el("span",p.icon??"↗","icon"),el("b",p.title),el("small",p.type??"Custom link"));
     const anchor=el("a","Open "+p.title);anchor.href=p.url;anchor.target="_blank";anchor.rel="noopener noreferrer";card.append(anchor);
