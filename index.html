@@ -1,0 +1,32 @@
+<!doctype html><html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nexus Shortcuts — AI Launchpad</title>
+<style>
+:root{font-family:system-ui,sans-serif;color-scheme:dark;color:#f7faff;background:#080f22}*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 78% -20%,#313c87,transparent 44%),#080f22}
+main{max-width:1100px;margin:auto;padding:25px 20px 80px}.overline{color:#79e3dc;letter-spacing:.18em;font-size:.78rem;font-weight:800}
+h1{font-size:clamp(2.6rem,8vw,5.2rem);margin:12px 0;line-height:1}h2{font-size:1.4rem}
+p{line-height:1.6;color:#c8d4eb}.intro{max-width:650px}
+.notice{border:1px solid #557499;border-radius:16px;padding:13px 17px;background:#202d46}
+#links,#roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.tile{border-radius:17px;border:1px solid #435e90;background:#1a2b4c;padding:19px;min-height:160px}
+.tile b{font-size:1.15rem}.tile a{color:#92e3ff;display:inline-block;margin-top:12px;font-weight:700;min-height:38px}
+.icon{font-size:2.5rem;display:block;margin-bottom:9px}.tile small{color:#a7bbe2;display:block;margin-top:9px}
+section{margin-top:35px}button{background:#7fe5ed;border:0;color:#081523;border-radius:11px;padding:12px 16px;min-height:44px;font-weight:800;cursor:pointer}
+button.secondary{background:#2f4570;color:white;border:1px solid #819acc}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #ffe39e;outline-offset:4px}
+form{display:flex;flex-wrap:wrap;gap:10px;margin:15px 0}
+input{color:#fff;background:#0e1e3a;border:1px solid #6487bd;border-radius:11px;padding:12px;font:inherit;min-height:45px}
+input[type=search]{width:100%;max-width:380px}
+form input{flex:1;min-width:190px}.role p{font-size:.91rem;min-height:120px}
+#message{min-height:24px;color:#a6f2c6}
+</style>
+</head><body><main>
+<div class="overline">NEXUS / CONTROL SURFACE 0.1</div>
+<h1>One place.<br>Better work.</h1>
+<p class="intro">Launch your projects, organize shortcuts, and copy an independent AI-review prompt. Use any AI app you already have; no extra API costs are created by this page.</p>
+<p class="notice"><strong>Manual multi-AI mode.</strong> Agents do not automatically communicate here. This launchpad makes their responsibilities explicit so you can transfer work and review results safely.</p>
+<section><h2>Project launchpad</h2><input id="search" type="search" placeholder="Search projects & shortcuts" aria-label="Search projects"><div id="links" style="margin-top:14px"></div></section>
+<section><h2>Add a shortcut</h2><form id="add"><input id="name" maxlength="70" required placeholder="Name" aria-label="Shortcut name"><input id="url" required type="url" placeholder="https://example.com" aria-label="HTTPS shortcut URL"><button type="submit">Add</button></form><p id="message" role="status" aria-live="polite"></p><p>Custom links are saved only in this browser. For safety, HTTPS addresses without embedded usernames or passwords are allowed.</p></section>
+<section><h2>AI collaboration — five roles</h2><p>Copy a role, paste it into a separate model, and pass evidence to the next role. Release only after a real test.</p><div id="roles"></div></section>
+</main><script type="module" src="./app.mjs"></script></body></html>
