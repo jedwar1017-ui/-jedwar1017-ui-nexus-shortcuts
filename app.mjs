@@ -1,4 +1,4 @@
-import {PROJECTS,ROLES,validUrl,validateShortcuts} from "./catalog.mjs";
+import {PROJECTS,COMPANIONS,ROLES,validUrl,validateShortcuts} from "./catalog.mjs";
 const $=id=>document.getElementById(id),KEY="nexus-shortcuts-v1";
 let personal=[];
 try{personal=validateShortcuts(JSON.parse(localStorage.getItem(KEY)??"[]"));}catch{personal=[];}
@@ -26,3 +26,10 @@ $("search").addEventListener("input",render);
 for(const role of ROLES){const card=el("article",undefined,"tile role");card.append(el("b",role.name),el("p",role.prompt));
   const btn=el("button","Copy prompt");btn.type="button";btn.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(role.prompt);message("Copied "+role.name+" prompt.");}catch{message("Clipboard unavailable. Select and copy the displayed prompt manually.");}});card.append(btn);$("roles").append(card);}
 render();
+const petsHost=$("companions");
+for(const companion of COMPANIONS){
+  const title=el("b",companion.icon+" "+companion.title);
+  const description=el("p","Standalone digital companions and seven-slot rotation; separate from software projects.");
+  const link=el("a","Open digital pets landscape");link.href=companion.url;link.target="_blank";link.rel="noopener noreferrer";
+  petsHost.append(title,description,link);
+}
