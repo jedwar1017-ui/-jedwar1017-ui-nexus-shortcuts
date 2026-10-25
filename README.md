@@ -5,7 +5,7 @@
 **Not implemented:** automatic LLM API calls, direct PC control, secure token management, cloud synchronization, GitHub Actions execution, or an installed Windows application. Copy/paste is currently the safe bridge between different AI services.
 
 ## Usage
-Open `index.html` in a browser or run `python -m http.server 8000` and visit http://localhost:8000. No backend and no API keys.
+Run a local static web server: `python -m http.server 8000`, then open http://localhost:8000. Direct `file://` opening may be blocked by browser ES-module security. On a phone, use an explicitly enabled static host such as GitHub Pages; no hosted URL is verified yet. No backend and no API keys.
 - Click a project to open its GitHub repository.
 - Add an HTTPS shortcut (stays in that browser via localStorage), or remove it.
 - Click any role prompt to copy it and paste into your chosen AI application.
