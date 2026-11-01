@@ -1,3 +1,4 @@
+import {exportBackup,importBackup} from "./backups.mjs";
 import {PROJECTS,ROLES,validUrl,validateShortcuts} from "./catalog.mjs";
 import {SOFTWARE_PROJECTS,COMPANIONS} from "./project-separation.mjs";
 const $=id=>document.getElementById(id),KEY="nexus-shortcuts-v1";
@@ -41,3 +42,18 @@ for(const companion of COMPANIONS){
   petsHost.append(title,description,link);
 }
 
+
+$("export-links").addEventListener("click",()=>{
+ const url=URL.createObjectURL(new Blob([exportBackup(personal)],{type:"application/json"}));
+ const a=document.createElement("a");a.href=url;a.download="nexus-shortcuts-backup.json";
+ document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ message("Backup download started. Keep it private if your links contain personal information.");
+});
+$("import-links").addEventListener("change",async e=>{
+ const file=e.target.files?.[0];e.target.value="";if(!file)return;
+ try{
+  if(file.size>200000)throw Error("Backup must be smaller than 200 KB.");
+  const next=importBackup(await file.text(),personal),added=next.length-personal.length;
+  personal=next;if(store())message("Imported "+added+" shortcuts. Existing links were kept; duplicate addresses were skipped.");
+ }catch(err){message("Import rejected: "+err.message);}
+});
