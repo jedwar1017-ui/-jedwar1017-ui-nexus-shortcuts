@@ -11,17 +11,23 @@ function render(){
     if(!(p.title+" "+(p.type??"custom")).toLowerCase().includes(q))continue;
     const card=el("article",undefined,"tile");card.append(el("span",p.icon??"↗","icon"),el("b",p.title),el("small",p.type??"Custom link"));
     const anchor=el("a","Open "+p.title);anchor.href=p.url;anchor.target="_blank";anchor.rel="noopener noreferrer";card.append(anchor);
-    if(personal.some(x=>x.id===p.id)){const remove=el("button","Remove","secondary");remove.type="button";remove.addEventListener("click",()=>{personal=personal.filter(x=>x.id!==p.id);store();message("Removed "+p.title);});card.append(el("span","  "),remove);}
+    if(personal.some(x=>x.id===p.id)){const remove=el("button","Remove","secondary");remove.type="button";remove.addEventListener("click",()=>{personal=personal.filter(x=>x.id!==p.id);if(store())message("Removed "+p.title);});card.append(el("span","  "),remove);}
     host.append(card);
   }
   if(!host.childElementCount)host.append(el("p","No shortcuts match."));
 }
-function store(){localStorage.setItem(KEY,JSON.stringify(personal));render();}
+function store(){
+  let saved=true;
+  try{localStorage.setItem(KEY,JSON.stringify(personal));}catch{saved=false;}
+  render();
+  if(!saved)message("Changes are only in this session because saving failed. Keep a copy of your links before closing or reloading.");
+  return saved;
+}
 $("add").addEventListener("submit",e=>{e.preventDefault();
   const title=$("name").value.trim(),url=validUrl($("url").value.trim());
   if(!title||!url){message("Use a nonempty name and an HTTPS URL without credentials.");return;}
   if(personal.length>=50){message("Shortcut limit reached.");return;}
-  personal.push({id:"custom-"+Date.now()+"-"+Math.random().toString(36).slice(2),title,url});store();$("add").reset();message("Shortcut added on this device.");
+  personal.push({id:"custom-"+Date.now()+"-"+Math.random().toString(36).slice(2),title,url});const saved=store();$("add").reset();if(saved)message("Shortcut added on this device.");
 });
 $("search").addEventListener("input",render);
 for(const role of ROLES){const card=el("article",undefined,"tile role");card.append(el("b",role.name),el("p",role.prompt));
@@ -34,3 +40,4 @@ for(const companion of COMPANIONS){
   const link=el("a","Open digital pets landscape");link.href=companion.url;link.target="_blank";link.rel="noopener noreferrer";
   petsHost.append(title,description,link);
 }
+
